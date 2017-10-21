@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.map_demo.clx.car_demo.fragment.Fragment_etc">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#99ccbb"
+        android:text="   二、ETC信息查询"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/etc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/etc_editText"
+
+            android:layout_alignBottom="@+id/etc_editText"
+
+            android:layout_alignParentStart="true"
+            android:text="ETC费率："
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="15sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/etc_editText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="32dp"
+            android:layout_toEndOf="@+id/etc_text"
+            android:ems="10" />
+
+        <Button
+            android:id="@+id/etc_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etc_editText"
+            android:layout_toEndOf="@+id/etc_editText"
+            android:text="设置" />
+
+        <Button
+            android:id="@+id/etc_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/etc_editText"
+            android:layout_marginTop="25dp"
+            android:text="ETC信息查询" />
+
+        <TextView
+            android:id="@+id/etc_find_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/etc_find"
+            android:layout_margin="20dp"
+            android:text="输入你ETC或者停车场的查询结果，没有你就隐藏吧。" />
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="46dp"
+            android:padding="10dp"
+            android:text="退出"
+            android:textSize="25sp" />
+
+
+    </RelativeLayout>
+</LinearLayout>

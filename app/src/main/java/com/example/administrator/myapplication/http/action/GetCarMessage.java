@@ -1,0 +1,65 @@
+package com.example.administrator.myapplication.http.action;
+
+import android.content.Context;
+
+import com.example.administrator.myapplication.CarMessage;
+import com.example.administrator.myapplication.db.DatabaseUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * @author zongbingwu 用户注册请求处理类,从客户端请求body中取得用户名，密码和邮箱
+ *         然后向数据库中插入一条记录，并将结果返回给http服务器或socket服务器
+ */
+public class GetCarMessage extends BaseAction {
+    // action name
+    public static final String TAG = "GetCarMessage";
+
+    private Context context;
+
+    public GetCarMessage(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    protected String jasonPorcess(String param) {
+        JSONObject jsonResponse = new JSONObject();
+        try {
+            JSONObject jsonRequest = new JSONObject(param);
+            // 处理请求
+            int carId = 0;
+            // 解析用户名
+            if (jsonRequest.has("carID")) {
+                carId = jsonRequest.getInt("carID");
+            }
+            if (carId != 0) {
+                jsonResponse.put("result", "ok");
+                CarMessage carMessage=DatabaseUtil.getCarMessage(context, carId + "");
+                jsonResponse.put("cardScore",carMessage.getCardscore());
+                jsonResponse.put("carNum",carMessage.getCarNum());
+                jsonResponse.put("carType",carMessage.getCarType());
+                jsonResponse.put("carMoney",carMessage.getCarMoney());
+                jsonResponse.put("carState",carMessage.getCarState());
+                jsonResponse.put("carPhone",carMessage.getCarPhone());
+                jsonResponse.put("carName",carMessage.getCarName());
+            } else {
+                jsonResponse.put("result", "failed");
+            }
+            // 返回结果
+            return jsonResponse.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    protected String soapPorcess(String param) {
+
+        return null;
+    }
+
+}
