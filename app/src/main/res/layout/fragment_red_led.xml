@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.map_demo.clx.car_demo.fragment.Fragment_etc">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
@@ -16,13 +15,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="10dp"
             android:text="状态:"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="16sp" />
@@ -31,31 +33,52 @@
             android:id="@+id/spinner1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/red_led" />
+            android:layout_gravity="center"
+            android:entries="@array/red_led"
+            android:gravity="center" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/led_x" />
+            android:entries="@array/led_x"
+            android:gravity="center" />
 
         <Spinner
             android:id="@+id/spinner3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/led" />
-
-        <Button
-            android:id="@+id/red_setting1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="设置"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="16sp" />
+            android:entries="@array/led"
+            android:gravity="center" />
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/red_setting1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="设置"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#99ccbb" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,47 +98,62 @@
             android:id="@+id/spinner11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/red_led" />
+            android:entries="@array/red_led"
+            android:gravity="center" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/spinner22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/led" />
+            android:entries="@array/led"
+            android:gravity="center" />
 
         <Spinner
             android:id="@+id/spinner33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/time" />
+            android:entries="@array/time"
+            android:gravity="center" />
 
-        <Button
-            android:id="@+id/red_setting2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="设置"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="16sp" />
+
     </LinearLayout>
 
-
-    <RelativeLayout
+    <Button
+        android:id="@+id/red_setting2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="设置"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#99ccbb" />
 
-        <Button
-            android:id="@+id/exit"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="46dp"
-            android:padding="10dp"
-            android:text="退出"
-            android:textSize="25sp" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="退出"
+        android:textSize="18sp" />
 
 
 </LinearLayout>

@@ -10,6 +10,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Brief_Introduction">简介：移动APP项目组制作的只能交通是一款模拟实际交通运行情况、覆盖各种模拟控制的电子沙盘，包括红绿灯控制，车辆行驶路线、路灯控制、停车场信息监控、ETC监控、环境监测、与实际物理交
+通沙盘对接等功能。 </string>
+
 
     <array name="car_item">
         <item>1号小车</item>
@@ -32,30 +35,30 @@
         <item>停车场出口红绿灯</item>
     </array>
     <array name="led_x">
-        <item>横向</item>
-        <item>竖向</item>
+        <item>　　横向　　</item>
+        <item>　　竖向　　</item>
     </array>
     <array name="led">
-        <item>红</item>
-        <item>绿</item>
+        <item>　　红　　</item>
+        <item>　　绿　　</item>
     </array>
     <array name="time">
-        <item>1秒</item>
-        <item>10秒</item>
-        <item>20秒</item>
-        <item>30秒</item>
-        <item>60秒</item>
+        <item>　　1秒　　</item>
+        <item>　　10秒　　</item>
+        <item>　　20秒　　</item>
+        <item>　　30秒　　</item>
+        <item>　　60秒　　</item>
     </array>
 
     <array name="car_number">
-        <item>1</item>
-        <item>5</item>
-        <item>15</item>
-        <item>20</item>
-        <item>25</item>
-        <item>30</item>
-        <item>35</item>
-        <item>4088</item>
-        <item>408</item>
+        <item>　　1　　</item>
+        <item>　　5　　</item>
+        <item>　　15　　</item>
+        <item>　　20　　</item>
+        <item>　　25　　</item>
+        <item>　　30　　</item>
+        <item>　　35　　</item>
+        <item>　　4088　　</item>
+        <item>　　408　　</item>
     </array>
 </resources>

@@ -22,20 +22,25 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="2dp"
+    <!--<View-->
+    <!--android:layout_width="2dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#55000000" />-->
+
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="#55000000" />
+        android:layout_weight="1"
+        android:background="@drawable/left_bg2">
 
-    <!--<ScrollView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1">-->
+        <LinearLayout
 
-        <include
-            layout="@layout/menu_layout"
-        />
-    <!--</ScrollView>-->
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/menu_layout" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

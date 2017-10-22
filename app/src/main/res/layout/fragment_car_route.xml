@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.map_demo.clx.car_demo.fragment.Fragment_etc">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
@@ -11,141 +10,143 @@
         android:layout_height="wrap_content"
         android:background="#99ccbb"
         android:text="   二、小车行驶路线控制"
-        android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
             android:text="小车数量："
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="16sp" />
 
         <AutoCompleteTextView
             android:id="@+id/car_route_edittext"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/textView6"
-            android:ems="10"
-            android:hint="1~4" />
+            android:ems="5"
+            android:gravity="center"
+            android:hint="1~4"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/car_route_number_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/car_route_edittext"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="设置" />
 
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#99ccbb" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/car_route_number_setting"
-            android:layout_marginTop="22dp"
             android:text="选择小车："
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/spinner1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView9"
-            android:layout_toEndOf="@+id/textView9"
-            android:entries="@array/car_item" />
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/spinner1"
-            android:layout_marginStart="22dp"
-            android:layout_toEndOf="@+id/spinner1"
-            android:entries="@array/car_route" />
-
-        <Button
-            android:id="@+id/car_route_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/car_route_number_setting"
-            android:layout_marginStart="32dp"
-            android:layout_toEndOf="@+id/spinner2"
-            android:text="设置" />
+            android:entries="@array/car_item" />
 
-        <Button
-            android:id="@+id/exit"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="46dp"
-            android:padding="10dp"
-            android:text="退出"
-            android:textSize="25sp" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/car_route" />
+
+    <Button
+        android:id="@+id/car_route_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#99ccbb" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|left"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="小车速度："
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/spinner2"
-            android:weightSum="4">
+            android:entries="@array/car_item" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1"
+    </LinearLayout>
 
-                android:gravity="center"
-                android:text="小车速度："
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+    <AutoCompleteTextView
+        android:id="@+id/lzh_spend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="8"
+        android:gravity="center"
+        android:hint="请输入速度" />
 
-            <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/car_item" />
+    <Button
+        android:id="@+id/lzh_setspend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="设置" />
 
-            <AutoCompleteTextView
-                android:id="@+id/lzh_spend"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/car_route_setting"
-                android:layout_toEndOf="@+id/textView"
-                android:layout_toRightOf="@+id/textView"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="请输入速度" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#99ccbb" />
 
-            <Button
-                android:id="@+id/lzh_setspend"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lzh_spend"
-                android:layout_alignBottom="@+id/lzh_spend"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_weight="1"
-                android:text="设置" />
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="退出"
+        android:textSize="18sp" />
 
 </LinearLayout>

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.content2, new Fragment_list()
         ).commit();
+
         gameView = (GameView) findViewById(R.id.lzh_view);
         Intent sev = new Intent(MainActivity.this,
                 NetServerService.class);

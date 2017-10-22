@@ -15,16 +15,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class BaseData
-{
+public class BaseData {
     /**
      * 共用数据类
      */
     //公用变量
     public static String[] current_name = {"co2", "airTemperature", "airHumidity",
             "soilTemperature", "soilHumidity", "light"};
-    public static int current_data[] = new int[6];
+    public static int current_data[] = {0, 1, 2, 3, 4, 5};
     public static String[] control_name = {"Blower", "Roadlamp", "WaterPump", "Buzzer"};
     public static int control_data[] = {0, 0, 0, 0};//  风扇 LED  水泵  警报
     public static int maxdata[] = {100, 100, 100, 100, 100, 9999};
@@ -43,39 +45,57 @@ public class BaseData
      *
      * @param context
      */
-    public static void init(Context context)
-    {
+    public static void init(Context context) {
         httppost_getdata();
     }
 
-    public static void stopall(Context context)
-    {
+    public static void stopall(Context context) {
         BaseData.getdata = false;
 
 
     }
+
+    static ExecutorService mExecutorService = Executors.newSingleThreadExecutor();
+
+    public static void startData() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                while (true) {
+                    try {
+                        for (int i = 0; i < current_data.length; i++)
+                            current_data[i] = new Random().nextInt(1000);
+
+                        sleep(1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        }.start();
+
+    }
+
 
     /**
      * 每秒获取传感器数据、开关状态    并每秒插入数据库
      */
     public static boolean getdata = false;
 
-    public static void httppost_getdata()
-    {
+    public static void httppost_getdata() {
         getdata = true;
 
-        new Thread(new Runnable()
-        {
+        new Thread(new Runnable() {
 
             @Override
-            public void run()
-            {
+            public void run() {
                 // TODO Auto-generated method stub
-                while (getdata)
-                {
+                while (getdata) {
                     BufferedReader reader = null;
-                    try
-                    {
+                    try {
 
                         URL url = new URL("http://" + ip2 + ":8890" +
                                 "/type/jason/action/getSensor");
@@ -90,29 +110,24 @@ public class BaseData
                         reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         String read = new String();
                         StringBuffer sb = new StringBuffer();
-                        while ((read = reader.readLine()) != null)
-                        {
+                        while ((read = reader.readLine()) != null) {
                             sb.append(read);
                         }
 
                         JSONObject jsonObject = new JSONObject(sb.toString());
                         Log.e("456", "run: " + jsonObject.toString());
-                        for (int i = 0; i < 6; i++)
-                        {
+                        for (int i = 0; i < 6; i++) {
                             current_data[i] = Integer.parseInt(jsonObject.getString
                                     (current_name[i]));
                             //System.out.println(current_data[i]);
                         }
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         // TODO: handle exception
                     }
 
-                    try
-                    {
+                    try {
                         Thread.sleep(1000);
-                    } catch (InterruptedException e)
-                    {
+                    } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
@@ -122,13 +137,11 @@ public class BaseData
 
     }
 
-    public static void post(String content, Handler handler)
-    {
+    public static void post(String content, Handler handler) {
 
         BufferedWriter writer = null;
         BufferedReader reader = null;
-        try
-        {
+        try {
             URL url = new URL("http://" + ip2 + ":8890" +
                     "/type/jason/action/getSensor");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -141,19 +154,16 @@ public class BaseData
 //            writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 //            writer.write(content);
             conn.connect();
-            if (!TextUtils.isEmpty(content))
-            {
+            if (!TextUtils.isEmpty(content)) {
                 conn.getOutputStream().write(content.getBytes());
             }
 
 
-            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
-            {
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String read = new String();
                 StringBuffer sb = new StringBuffer();
-                while ((read = reader.readLine()) != null)
-                {
+                while ((read = reader.readLine()) != null) {
                     sb.append(read);
                 }
                 read = sb.toString();
@@ -165,31 +175,24 @@ public class BaseData
             }
 
 
-        } catch (MalformedURLException e)
-        {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
             handler.sendEmptyMessage(404);
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
             handler.sendEmptyMessage(404);
-        } finally
-        {
-            try
-            {
+        } finally {
+            try {
                 if (writer != null)
                     writer.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            try
-            {
+            try {
                 if (reader != null)
                     reader.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

@@ -40,7 +40,7 @@ public class Fragment_open_server extends BaseFragment {
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"获取成功！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "获取成功！", Toast.LENGTH_SHORT).show();
                 //ip
             }
         });

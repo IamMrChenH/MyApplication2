@@ -9,13 +9,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.administrator.myapplication.GameView;
 import com.example.administrator.myapplication.NetWorkUtils;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.baseData.BaseData;
 import com.example.administrator.myapplication.widt.CarSpeeddialog;
 
 import java.io.FileOutputStream;
@@ -37,46 +38,39 @@ import java.util.Locale;
  * Created by chenhao on 17-3-6.
  */
 
-public class Fragment_list extends BaseFragment
-{
+public class Fragment_list extends BaseFragment {
 
     public static GameView gameView;
     private LinearLayout mLayout;
     public static Bitmap curBitmap;
 
+    List<Fragment> mOneListFragments = new ArrayList<>();
+    List<Fragment> mTwoListFragments = new ArrayList<>();
+
     @Override
-    public int getLayoutId()
-    {
+    public int getLayoutId() {
         return R.layout.fragment_list;
     }
 
-    private MyListview mListView1, mListView2;
-    Button camera;
+    public MyGridView mListView1, mListView2;
 
-    private Handler mUIHandle = new Handler()
-    {
+    private Handler mUIHandle = new Handler() {
         @Override
-        public void handleMessage(Message msg)
-        {
-            if (msg.what == 200)
-            {
-
+        public void handleMessage(Message msg) {
+            if (msg.what == 200) {
                 curBitmap = CutScreem((View) msg.obj);
                 gameView.isShowCarSpeed = false;
 //                showDialog(curBitmap);
-
                 new CarSpeeddialog().show(getChildFragmentManager(), "");
-
             }
-
 
         }
     };
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        BaseData.startData();
         mListView1 = findView(R.id.listView1);
         mListView2 = findView(R.id.listView2);
         Log.e("chenhao", "run: ");
@@ -89,8 +83,8 @@ public class Fragment_list extends BaseFragment
         items.add(new Item(R.mipmap.ic_launcher, "环境监控", "查询各个传感器"));
         items.add(new Item(R.mipmap.ic_launcher, "红绿灯控制", "设置每个红绿灯状态和时间"));
         items.add(new Item(R.mipmap.ic_launcher, "路灯控制", "设置每个路灯的开光和自动/手动模式"));
+        items.add(new Item(R.mipmap.ic_launcher, "手动抓拍", " 手动抓拍 "));
         mListView1.setAdapter(new ListViewAdapter(getActivity(), items));
-
 
         items = new ArrayList<>();
         items.add(new Item(R.mipmap.ic_launcher, "对接互联", "同步物理沙盘的各种信息"));
@@ -98,149 +92,105 @@ public class Fragment_list extends BaseFragment
         items.add(new Item(R.mipmap.ic_launcher, "网络设置", "选择设置网络"));
         mListView2.setAdapter(new ListViewAdapter(getActivity(), items));
 
-        setListViewOnItemListene();
 
         mLayout = (LinearLayout) getActivity().findViewById(R.id.lzh_line);
-        camera = (Button) getView().findViewById(R.id.paizhao);
         gameView = (GameView) getActivity().findViewById(R.id.lzh_view);
-        camera.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(final View v)
-            {
 
-//                gameView.setIsShowCarSpeed();
-                new Thread()
-                {
-                    @Override
-                    public void run()
-                    {
-                        try
-                        {
-                            gameView.isShowCarSpeed = true;
-                            sleep(500);
-                            mUIHandle.obtainMessage(200, v).sendToTarget();
-                        } catch (InterruptedException e)
-                        {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }.start();
-
-
-            }
-        });
         String ipStr = NetWorkUtils.getLocalIpAddress(getActivity());
         TextView ipText = (TextView) getView().findViewById(R.id.lzh_ip);
         ipText.setText(ipStr);
+
+
+        setListViewOnItemListene();
     }
 
-    private void setListViewOnItemListene()
-    {
-        mListView1.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+    /**
+     * 初始化 fragment 数组和 设置 显示功能列表的单击显示功能
+     */
+    private void setListViewOnItemListene() {
+
+        mOneListFragments.add(new Fragment_etc());
+        mOneListFragments.add(new Fragment_partCar());
+        mOneListFragments.add(new Fragment_dataTotal());
+
+        mOneListFragments.add(new Fragment_car_route());
+        mOneListFragments.add(new Fragment_envir());
+        mOneListFragments.add(new Fragment_red_led());
+        mOneListFragments.add(new Fragment_night_led_setting());
+
+        mTwoListFragments.add(new Fragment_intnet());
+        mTwoListFragments.add(new Fragment_open_server());
+
+
+        mListView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                switch (position)
-                {
-                    case 0:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_etc()).commit();
-                        break;
-                    case 1:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_partCar()).commit();
-                        break;
-                    case 2:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_dataTotal()).commit();
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                if (position != 7)
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
+                            .content2, mOneListFragments.get(position)).commit();
+                else {
+                    //           gameView.setIsShowCarSpeed();
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                gameView.isShowCarSpeed = true;
+                                sleep(500);
+                                mUIHandle.obtainMessage(200, view).sendToTarget();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
-                        break;
-                    case 3:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_car_route()).commit();
-
-                        break;
-                    case 4:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_envir()).commit();
-
-                        break;
-                    case 5:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_red_led()).commit();
-
-                        break;
-                    case 6:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_night_led_setting()).commit();
-
-                        break;
+                        }
+                    }.start();
                 }
+
+
             }
         });
 
 
-        mListView2.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        mListView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                switch (position)
-                {
-                    case 0:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_intnet()).commit();
-                        break;
-                    case 1:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
-                                .content2, new Fragment_open_server()).commit();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 2)
+                    startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                else
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
+                            .content2, mTwoListFragments.get(position)).commit();
 
-                        break;
-                    case 2:
 
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                        break;
-                }
             }
         });
 
     }
 
-    public class ListViewAdapter extends BaseAdapter
-    {
+    public class ListViewAdapter extends BaseAdapter {
         private final LayoutInflater from;
         private List<Item> mItems;
 
-        public ListViewAdapter(Context context, List<Item> mItems)
-        {
+        public ListViewAdapter(Context context, List<Item> mItems) {
             this.mItems = mItems;
             from = LayoutInflater.from(context);
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return mItems.size();
         }
 
         @Override
-        public Item getItem(int position)
-        {
+        public Item getItem(int position) {
             return mItems.get(position);
         }
 
         @Override
-        public long getItemId(int position)
-        {
+        public long getItemId(int position) {
             return position;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
+        public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null)
                 convertView = from.inflate(R.layout.item_1, null);
             ImageView img1 = (ImageView) convertView.findViewById(R.id.img1);
@@ -256,10 +206,8 @@ public class Fragment_list extends BaseFragment
 
     }
 
-    class Item
-    {
-        public Item(int mIcon, String mText1, String mText2)
-        {
+    class Item {
+        public Item(int mIcon, String mText1, String mText2) {
             this.mIcon = mIcon;
             this.mText1 = mText1;
             this.mText2 = mText2;
@@ -272,9 +220,7 @@ public class Fragment_list extends BaseFragment
 
 
     @SuppressLint("SdCardPath")
-    private Bitmap CutScreem(View views)
-    {//截屏
-
+    private Bitmap CutScreem(View views) {//截屏
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US);
         String fname = "/sdcard/" + sdf.format(new Date()) + ".png";
@@ -282,24 +228,20 @@ public class Fragment_list extends BaseFragment
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
         Bitmap bitmap = view.getDrawingCache();
-        if (bitmap != null)
-        {
+        if (bitmap != null) {
             System.out.println("bitmap got!");
-            try
-            {
+            try {
 
 
                 FileOutputStream out = new FileOutputStream(fname);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
                 System.out.println("file" + fname + "output done.");
                 Toast.makeText(getActivity(), "抓拍成功！", Toast.LENGTH_LONG).show();
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(getActivity(), "抓拍保存失败！", Toast.LENGTH_LONG).show();
             }
-        } else
-        {
+        } else {
             System.out.println("bitmap is NULL!");
             Toast.makeText(getActivity(), "抓拍失败！", Toast.LENGTH_LONG).show();
         }
