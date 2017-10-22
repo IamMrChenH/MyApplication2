@@ -4,25 +4,23 @@
     android:layout_height="match_parent"
     android:layout_margin="2dp"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="3dp">
 
     <ImageView
         android:id="@+id/img1"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@mipmap/ic_launcher"
-        android:text="ECT"
-        android:textSize="20sp" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/t1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="ECT          "
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="15sp" />
+        android:text="ECT"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/t2"
@@ -30,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/t1"
         android:gravity="center"
-        android:visibility="gone"
-        android:text="ECT          "
-        android:textSize="12sp" />
+        android:text="ECT"
+        android:textSize="10sp"
+        android:visibility="gone" />
 
 </LinearLayout>

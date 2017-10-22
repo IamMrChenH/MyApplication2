@@ -13,10 +13,10 @@
         android:textSize="18sp" />
 
     <com.example.administrator.myapplication.fragment.MyGridView
-        android:layout_marginTop="5dp"
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:numColumns="2"></com.example.administrator.myapplication.fragment.MyGridView>
 
     <TextView
@@ -28,11 +28,10 @@
 
     <com.example.administrator.myapplication.fragment.MyGridView
         android:id="@+id/listView2"
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:numColumns="2" />
-
 
 
     <TextView
@@ -40,6 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#99ccbb"
+        android:gravity="center"
         android:text=""
-        android:textSize="18sp" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textSize="15sp" />
 </LinearLayout>

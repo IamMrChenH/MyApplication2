@@ -65,7 +65,10 @@ public class NetWorkUtils {
                     .getSystemService(Context.WIFI_SERVICE);
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             int i = wifiInfo.getIpAddress();
-            return "本机IP："+int2ip(i);
+            if (int2ip(i).equals("0.0.0.0"))
+                return "WIFI未开启或未连接，请检查网络！";
+
+            return "本机IP：" + int2ip(i);
         } catch (Exception ex) {
             return " 获取IP出错鸟!!!!请保证是WIFI,或者请重新打开网络!\n" + ex.getMessage();
         }

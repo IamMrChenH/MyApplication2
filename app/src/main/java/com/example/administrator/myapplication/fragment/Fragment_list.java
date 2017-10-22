@@ -76,13 +76,13 @@ public class Fragment_list extends BaseFragment {
         Log.e("chenhao", "run: ");
 
         List<Item> items = new ArrayList<>();
-        items.add(new Item(R.mipmap.ic_launcher, "ETC信息查询", "查询ETC费率和各个时间点小车消费记录"));
-        items.add(new Item(R.mipmap.ic_launcher, "停车场信息查询", "查询停车场和各个时间点小车消费记录"));
-        items.add(new Item(R.mipmap.ic_launcher, "数据统计", "小车记录的数据统计"));
-        items.add(new Item(R.mipmap.ic_launcher, "小车行驶路线控制", "设置小车行驶路径"));
-        items.add(new Item(R.mipmap.ic_launcher, "环境监控", "查询各个传感器"));
-        items.add(new Item(R.mipmap.ic_launcher, "红绿灯控制", "设置每个红绿灯状态和时间"));
-        items.add(new Item(R.mipmap.ic_launcher, "路灯控制", "设置每个路灯的开光和自动/手动模式"));
+        items.add(new Item(R.mipmap.icon_etc, "ETC信息查询", "查询ETC费率和各个时间点小车消费记录"));
+        items.add(new Item(R.mipmap.icon_parking, "停车场信息查询", "查询停车场和各个时间点小车消费记录"));
+        items.add(new Item(R.mipmap.icon_recharge, "数据统计", "小车记录的数据统计"));
+        items.add(new Item(R.mipmap.creative, "小车行驶路线控制", "设置小车行驶路径"));
+        items.add(new Item(R.mipmap.icon_trafic, "环境监控", "查询各个传感器"));
+        items.add(new Item(R.mipmap.icon_light, "红绿灯控制", "设置每个红绿灯状态和时间"));
+        items.add(new Item(R.mipmap.icon_lamp, "路灯控制", "设置每个路灯的开光和自动/手动模式"));
         items.add(new Item(R.mipmap.ic_launcher, "手动抓拍", " 手动抓拍 "));
         mListView1.setAdapter(new ListViewAdapter(getActivity(), items));
 
