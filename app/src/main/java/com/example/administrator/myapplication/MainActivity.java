@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -59,7 +61,24 @@ public class MainActivity extends AppCompatActivity
         startService(new Intent(MainActivity.this, LinghtsService.class));
 
 
+
+
+        gameView.getCars().get(0).setPark(true);
+        gameView.getCars().get(0).setParkTime(10*1000);
+//        gameView.getCars().get(0).setPartType();
+
+
+
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.e("233", "onTouchEvent: "  + ev.getX() );
+        Log.e("233", "onTouchEvent: "  + ev.getY() );
+        return super.dispatchTouchEvent(ev);
+    }
+
+
 
     @Override
     protected void onDestroy()

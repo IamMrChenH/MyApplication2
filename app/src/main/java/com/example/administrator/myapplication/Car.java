@@ -82,7 +82,7 @@ public class Car {
         this.y = y;
         this.targerX = x;
         this.targerY = y;
-        this.speed = 2;
+        this.speed = 10;
         this.image = image;
         this.luxian = luxian;
         this.isPark = false;

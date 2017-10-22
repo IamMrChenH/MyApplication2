@@ -50,10 +50,11 @@ public class GameView extends View implements View.OnClickListener {
         return cars;
     }
 
+    // 0 480  900
     private int LightOne = 0;
     private int Luxian1 = 0;//大圈
-    private int Luxian2 = 678;//中圈  luxian3
-    private int Luxian3 = 1100;//小圈
+    private int Luxian2 = 413 + 70;//中圈  luxian3
+    private int Luxian3 = 725;//小圈
     int[] LUXIANS = {Luxian1, Luxian2, Luxian3};
     private Paint paint = new Paint();//ETC路口灯
     //     Paint paintH1 = new Paint();//横向路口灯
@@ -230,10 +231,11 @@ public class GameView extends View implements View.OnClickListener {
         if (LightOne >= 200) {
             LightOne = 0;
         }
+
         //ECT通道
-//        canvas.drawRect(width / 5 * 4 + 80, 0, width / 5 * 4 + 100, height / 8 - 30, paint);
-//        canvas.drawRect(width / 5 * 4 + 80, height - height / 8 + 30, width / 5 * 4 + 100,
-//                height, paint);
+        canvas.drawRect(width / 5 * 4 + 80, 0, width / 5 * 4 + 100, height / 8 - 30, paint);
+        canvas.drawRect(width / 5 * 4 + 80, height - height / 8 + 30, width / 5 * 4 + 100,
+                height, paint);
 
         //绘画红绿灯
         drawTrafficLight(canvas);
@@ -275,7 +277,7 @@ public class GameView extends View implements View.OnClickListener {
             //270左 西 0下 南 90 右 东 180 上 北
             canvas.drawBitmap(car.image, (int) width - (car.targerX), (int) car.targerY, null);
 
-            if (!isShowCarSpeed) {
+            if (isShowCarSpeed) {
                 paint_text.setTextSize(CAR_SPEED_TEXT_SIZE);
                 canvas.drawText(car.getSpeed() + "", (int) width - (car.targerX), (int) car.targerY,
                         paint_text);
@@ -302,10 +304,10 @@ public class GameView extends View implements View.OnClickListener {
 //        Luxian2 = mWidth*2/3;
 //        Luxian3 = mWidth-50;
 
-        Luxian1 = Luxian2 = Luxian3 = 678;
+        // Luxian1 = Luxian2 = Luxian3 = 678;
 
 
-        Log.e("233", "mWidth: " + mWidth + "mHeigh: " + mHeigh);
+//        Log.e("233", "mWidth: " + mWidth + "mHeigh: " + mHeigh);
 
     }
 
@@ -469,6 +471,7 @@ public class GameView extends View implements View.OnClickListener {
                     .targerY >= getHeight() - 200 && car.targerY <= getHeight() - 200 + car.speed) {
                 car.targerY = car.y;
             }
+
             if (car.targerY >= getHeight() - 100) {
                 car.targerY = getHeight() - 100;
                 return;
@@ -481,7 +484,7 @@ public class GameView extends View implements View.OnClickListener {
 
     //到右边至红绿灯至结束
     public void Car_GoRight(Car car) {
-        car.targerY = getHeight() - 70;
+        car.targerY = getHeight() - 50;
         while (true) {
             if (car.targerX >= (getWidth() / 4 - 20) && car.targerX <= (getWidth() / 4 + 80) &&
                     paint.getColor() == Color.BLACK) {
@@ -494,16 +497,17 @@ public class GameView extends View implements View.OnClickListener {
             }
 
             if (car.isPark() && car.targerX <= (getWidth() / 3)) {
-                car.targerX = (410);
+                car.targerX = (300);
                 return;
             }
 
             if ((!car.isPark()) && car.targerX <= car.image.getWidth() - 20 + (car.luxian == 0 ?
                     0 : Luxian2)) {
-                car.targerX = (car.luxian == 0 ? 0 : Luxian2) + 70;
+                if (car.luxian == Luxian2 || car.luxian == Luxian3)
+                    car.targerX = (car.luxian == 0 ? 0 : Luxian2);
+                else car.targerX = (car.luxian == 0 ? 0 : Luxian2) + 50;
                 return;
             }
-
 
             setsleep();
         }
@@ -523,8 +527,9 @@ public class GameView extends View implements View.OnClickListener {
                 if (car.targerY < 100 + car.parkAdd * 81 && car.targerY >= 100 + car.parkAdd * 81
                         - car.speed) {
                     car.image = setRotate(car, 270);
-                    car.targerX = 320;
-                    car.targerY = 100 + car.parkAdd * 81;
+                    car.targerX = 200;
+                    Log.e("233", "Car_GoTop: " + car.getName());
+                    car.targerY = 75 + car.parkAdd * 55;
                     car.isRun = false;
                     setsleep();
                     car.setBeginPartTime(System.currentTimeMillis());
@@ -543,7 +548,7 @@ public class GameView extends View implements View.OnClickListener {
                     partCars.remove(partCars.indexOf(car));
                     car.isRun = true;
                     car.image = setRotate(car, 90);
-                    car.targerX = 410;
+                    car.targerX = 300;
                     if (car.targerY < 10) {
                         car.targerY = car.image.getWidth() + 10;
                         return;
